@@ -61,6 +61,7 @@ function addTaskToDb() {
 
     newTask.set({
         name: taskName.value,
+        uid: user.uid
     });
 
     taskName.value = '';
