@@ -145,23 +145,6 @@ body
     flex-direction: column;
 }
 
-.listModalSize
-{
-    animation: listModalSizeAnimation 1s ease-in-out;
-}
-
-@keyframes listModalSizeAnimation
-{
-    0%
-    {
-        height: 30%;
-    }
-    100%
-    {
-        height: 55%;
-    }
-}
-
 .listModalAnimation
 {
     animation: listModalAnimate 1s ease-in-out;
@@ -187,14 +170,15 @@ body
 #welcomeText
 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.4em;
+    font-size: 1.2em;
 }
 
 #listText
 {
     font-family: 'Montserrat', sans-serif;
     padding: 1em;
-    font-size: 1.2em;
+    font-size: 1em;
+    text-align: center;
 }
 
 #todoList
@@ -228,9 +212,10 @@ body
     box-shadow: 0 0 5px #333;
 }
 
+
 #addTask
 {
-    width: 25%;
+    width: 40%;
     padding: 0.5em 0.3em;
     font-family: 'Montserrat', sans-serif;
     background: transparent;
@@ -288,12 +273,13 @@ body
     #loginModal
     {
         width: 20%;
-        height: 30%;
+        height: 55%;
     }
 
     #listModal
     {
         width: 20%;
+        height: 55%;
     }
 }
 

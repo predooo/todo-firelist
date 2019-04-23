@@ -56,38 +56,54 @@ function githubLogin() {
 
 //ADDING TASK TO DATABASE
 function addTaskToDb() {
-    let db = firebase.database().ref('user/' + user.uid);
-    let newTask = db.push();
+    if(taskName.value == null || taskName.value == '') {
+        alert("Podaj nazwę zadania!");
+    }
+    else {
+        let db = firebase.database().ref('tasks');
+        let newTask = db.push();
 
-    newTask.set({
-        name: taskName.value,
-        uid: user.uid
-    });
-
+        newTask.set({
+            name: taskName.value,
+            uid: user.uid
+        });
+    }
     taskName.value = '';
 }
-
+let span;
 //READING DATA FROM DATABASE
 listModal.addEventListener('animationend', () => {
 
-    listModal.classList.remove('listModalAnimation');
-    listModal.classList.add('listModalSize');
-
-    let db = firebase.database().ref('user/' + user.uid);
+    let db = firebase.database().ref('tasks');
 
     db.on('child_added', snapshot => {
 
-        let span = document.createElement('span');
+        span = document.createElement('span');
+        span.setAttribute('id', snapshot.key);
         span.setAttribute('class', 'listItem');
+        span.setAttribute('onclick', 'deleteFromDb()');
         let textNode = document.createTextNode(snapshot.val().name + `\n`);
         span.appendChild(textNode);
 
         snapshot.forEach(() => {
-            todoListContent.appendChild(span);
+            if(snapshot.val().uid == user.uid) {
+                todoListContent.appendChild(span);
+            }
         });
     });
 
+    db.on('child_removed', () => {
+        span.remove();
+    });
+
 });
+
+//DELETING FORM DATABASE
+function deleteFromDb() {
+    let db = firebase.database().ref('tasks');
+    let key = span.id;
+    db.child(key).remove();
+}
 
 //EVENT LISTENERS
 fbLoginBtn.addEventListener('click', facebookLogin);
